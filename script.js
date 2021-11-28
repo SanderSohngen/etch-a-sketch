@@ -1,7 +1,7 @@
 const buttons = document.querySelector(".sidebar");
 buttons.addEventListener("click", event => {
-	const button = event.target.id;
-	paintDots(button);
+	const buttonID = event.target.id;
+	paintDots(buttonID);
 });
 
 const selectedColor = () => {
@@ -20,7 +20,7 @@ const backgroundColor = () => "#EAEAEA";
 
 const clearAll = () => {
 	const dots = document.querySelectorAll(".dot");
-	dots.forEach((dot) => {
+	dots.forEach(dot => {
 		const color = "#EAEAEA";
 		dot.style.backgroundColor = color;
 	});
@@ -34,29 +34,33 @@ const modes = {
 	clear: clearAll,
 };
 
-const paintDots = (button) => {
-	if (button === "clear") modes[button]();
-	if (button === "clear" || !modes[button]) return;
+const paintDots = (buttonID) => {
+	if (buttonID === "clear") modes[buttonID]();
+	if (buttonID === "clear" || !modes[buttonID]) return;
 	unhighlightAllButtons();
-	hightlightButton(button);
-	const dots = document.querySelectorAll(".dot");
-	dots.forEach((dot) => {
-		dot.addEventListener("mouseover", () => {
-			const color = modes[button];
-			dot.style.backgroundColor = color();
-		});
-	});
+	hightlightButton(buttonID);
+	paintAllDots(buttonID);
 };
 
 function unhighlightAllButtons() {
 	const buttons = document.querySelectorAll("button");
-	buttons.forEach((button) => button.classList.remove("selected"));
+	buttons.forEach(button => button.classList.remove("selected"));
 }
 
-function hightlightButton(id) {
-	const button = document.querySelector(`#${id}`);
-	if (id === "particularColor") return;
+function hightlightButton(buttonID) {
+	if (buttonID === "particularColor") return;
+	const button = document.querySelector(`#${buttonID}`);
 	button.classList.add("selected");
+}
+
+function paintAllDots(buttonID) {
+	const dots = document.querySelectorAll(".dot");
+	dots.forEach(dot => {
+		dot.addEventListener("mouseover", () => {
+			const color = modes[buttonID];
+			dot.style.backgroundColor = color();
+		});
+	});
 }
 
 const gridSize = document.querySelector("#size");
