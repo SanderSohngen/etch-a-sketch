@@ -4,36 +4,6 @@ buttons.addEventListener("click", event => {
 	paintDots(buttonID);
 });
 
-const selectedColor = () => {
-	const particularColorMode = document.querySelector("#particularColor");
-	return particularColorMode.value;
-};
-
-const predefinedColor = () => "#4F6D7A";
-
-const randomColor = () => {
-	const hue = Math.floor(Math.random() * 360);
-	return `hsl(${hue}, 100%, 50%)`;
-};
-
-const backgroundColor = () => "#EAEAEA";
-
-const clearAll = () => {
-	const dots = document.querySelectorAll(".dot");
-	dots.forEach(dot => {
-		const color = "#EAEAEA";
-		dot.style.backgroundColor = color;
-	});
-};
-
-const modes = {
-	particularColor: selectedColor,
-	color: predefinedColor,
-	random: randomColor,
-	eraser: backgroundColor,
-	clear: clearAll,
-};
-
 const paintDots = (buttonID) => {
 	if (buttonID === "clear") modes[buttonID]();
 	if (buttonID === "clear" || !modes[buttonID]) return;
@@ -62,6 +32,36 @@ function paintAllDots(buttonID) {
 		});
 	});
 }
+
+const getSelectedColor = () => {
+	const particularColorMode = document.querySelector("#particularColor");
+	return particularColorMode.value;
+};
+
+const getPredefinedColor = () => "#4F6D7A";
+
+const getRandomColor = () => {
+	const hue = Math.floor(Math.random() * 360);
+	return `hsl(${hue}, 100%, 50%)`;
+};
+
+const getBackgroundColor = () => "#EAEAEA";
+
+const clearAll = () => {
+	const dots = document.querySelectorAll(".dot");
+	dots.forEach(dot => {
+		const color = "#EAEAEA";
+		dot.style.backgroundColor = color;
+	});
+};
+
+const modes = {
+	particularColor: getSelectedColor,
+	color: getPredefinedColor,
+	random: getRandomColor,
+	eraser: getBackgroundColor,
+	clear: clearAll,
+};
 
 const gridSize = document.querySelector("#size");
 gridSize.addEventListener("input", () => {
